@@ -1,7 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:mobx_firebase/stores/domain_stores.dart';
 
 part 'ui_store.g.dart';
 
@@ -11,11 +9,11 @@ abstract class UIStoreBase with Store {
   @observable
   FirebaseUser user;
 
-  @observable
-  Brightness brightness;
+  @computed
+  String get userDisplayName => (user.displayName.isNotEmpty) ? user.displayName : user.email;
 
   @action
   Future<void> initialize() async {
-    brightness = Brightness.dark;
+    // initialize some UI stuff like theme settings..
   }
 }

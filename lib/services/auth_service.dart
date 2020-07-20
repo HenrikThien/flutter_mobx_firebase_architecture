@@ -18,6 +18,18 @@ class AuthService {
     return user;
   }
 
+  Future<bool> isSignedIn() async {
+    return (await _auth.currentUser()) != null;
+  }
+
+  Future<FirebaseUser> getCurrentUser() async {
+    return await _auth.currentUser();
+  }
+
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
   Future<FirebaseUser> signUp(String email, String password) async {
     final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(email: email, password: password)).user;
     return user;

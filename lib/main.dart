@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_firebase/locator.dart';
+import 'package:mobx_firebase/ui/root_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  registerInstances();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Firebase Mobx Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      home: RootPage(),
     );
   }
 }

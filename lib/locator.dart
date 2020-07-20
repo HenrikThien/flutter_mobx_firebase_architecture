@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:mobx_firebase/repositories/todo_list_repository.dart';
 import 'package:mobx_firebase/services/auth_service.dart';
 import 'package:mobx_firebase/stores/domain_stores.dart';
 import 'package:mobx_firebase/stores/ui_store.dart';
@@ -6,6 +7,7 @@ import 'package:mobx_firebase/stores/ui_store.dart';
 GetIt locator = GetIt.instance;
 
 Future<void> registerInstances() async {
+  locator.registerSingleton(TodoListRepository());
   locator.registerFactory(() => AuthService());
 
   locator.registerSingletonAsync(() async {

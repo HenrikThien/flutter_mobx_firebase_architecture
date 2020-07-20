@@ -9,6 +9,14 @@ part of 'ui_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$UIStore on UIStoreBase, Store {
+  Computed<String> _$userDisplayNameComputed;
+
+  @override
+  String get userDisplayName => (_$userDisplayNameComputed ??= Computed<String>(
+          () => super.userDisplayName,
+          name: 'UIStoreBase.userDisplayName'))
+      .value;
+
   final _$userAtom = Atom(name: 'UIStoreBase.user');
 
   @override
@@ -34,7 +42,8 @@ mixin _$UIStore on UIStoreBase, Store {
   @override
   String toString() {
     return '''
-user: ${user}
+user: ${user},
+userDisplayName: ${userDisplayName}
     ''';
   }
 }
