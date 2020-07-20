@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_database/firebase_database.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mobx_firebase/locator.dart';
 import 'package:mobx_firebase/models/todo_item.dart';
@@ -26,7 +25,7 @@ abstract class ListStoreBase with Store {
   @action
   Future<void> listen() async {
     items.clear();
-    
+
     await _fetchAllItems();
 
     _onItemAdded = _repo.onItemAdded().listen((event) {
@@ -35,10 +34,12 @@ abstract class ListStoreBase with Store {
         items.add(item);
       }
     });
+
     _onItemRemoved = _repo.onItemRemoved().listen((event) {
       var item = TodoItem.fromSnapshot(event.snapshot);
       items.removeWhere((e) => e.title == item.title);
     });
+
     _onItemChanged = _repo.onItemChanged().listen((event) {
       var item = TodoItem.fromSnapshot(event.snapshot);
       items.removeWhere((e) => e.title == item.title);
@@ -50,7 +51,7 @@ abstract class ListStoreBase with Store {
     final snapshot = await _repo.fetchItems();
     if (snapshot.value != null) {
       Map<dynamic, dynamic> values = snapshot.value;
-      values.forEach((key, value) { 
+      values.forEach((key, value) {
         var item = TodoItem(title: key, body: value);
         items.add(item);
       });
